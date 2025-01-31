@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <meta charset="UTF-8">
+    <title>CookFood</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .navbar {
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            font-size: 20px;
+        }
+        .navbar a {
+            text-decoration: none;
+            color: black;
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .search-input {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .recipe-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .recipe-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        h2{
+            margin-bottom:4px;
+        }
+        .serving-container {
+            align-items: center;
+            margin: 10px 0;
+        }
+        .serving-input {
+            width: 50px;
+            margin-right: 5px;
+            padding: 5px;
+            text-align: right;
+        }
+        .view-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/">CookFood</a>
+    </nav>
+<hr style="margin:15px;">
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search recipes...">
+    </div>
+
+
+
+    <div class="recipe-list" id="recipeList">
+
+
+        {% for recipe in data %}
+            <div class="recipe-card" data-recipe="{{ recipe }}">
+                <h2>{{ recipe|title }}</h2>
+                {% if data[recipe][0] %}
+                    <div class="serving-container">
+                        <input type="number" min="1" max="999" class="serving-input" value="{{  data[recipe][0] }}" data-recipe="{{ recipe }}">
+                        {% if data[recipe][1] %}
+                            <span>{{  data[recipe][1] }}</span>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                <a data-recipe-link="{{ recipe }}"
+                    href="/recipe/{{ recipe }}{% if data[recipe][0] %}?serve={{ data[recipe][0] }} {% endif %}" 
+                    class="view-button">
+                        View Recipe
+                </a>
+            </div>
+    {% endfor %}
+    
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            const recipeCards = document.querySelectorAll('.recipe-card');
+
+            searchInput.addEventListener('input', () => {
+                const searchTerm = searchInput.value.toLowerCase();
+                
+                recipeCards.forEach(card => {
+                    const recipeName = card.dataset.recipe;
+                    card.style.display = recipeName.includes(searchTerm) ? 'flex' : 'none';
+                });
+            });
+
+            // Dynamic href update
+            const servingInputs = document.querySelectorAll('.serving-input');
+            servingInputs.forEach(input => {
+                input.addEventListener('input', () => {
+                    const recipe = input.dataset.recipe;
+                    const viewLink = document.querySelector(`a[data-recipe-link="${recipe}"]`);
+                    
+                    const servingValue = input.value || 1;
+                    viewLink.href = `/recipe/${recipe}?serve=${servingValue}`;
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

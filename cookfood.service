@@ -1,0 +1,19 @@
+# /etc/systemd/system/cookfood.service
+
+[Unit]
+Description=CookFood
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/path/to/your/repo
+ExecStart=gunicorn -w 4 -b 0.0.0.0:40032 -w 3 --reload app:app 
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+# sudo systemctl daemon-reload
+# sudo systemctl enable cookfood
+# sudo systemctl start cookfood
+# sudo systemctl status cookfood

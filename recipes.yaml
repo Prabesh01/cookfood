@@ -1,0 +1,40 @@
+flames:
+  l:
+    - low
+    - 180
+    - 500
+  m:
+    - medium
+    - 100
+    - 800
+  h:
+    - high
+    - 90
+    - 1200
+
+chicken:
+ serve: 0.4 KG
+ ingreds:
+    - masino pyaj: 0.5
+    - lasun-adhuwa paste
+    - tamatar[masino]
+    - khursani
+    - masala:
+        - mix masala: 1 spoon
+        - garam masala: 1 spoon
+        - besar: 0.5 spoon
+        - meat masala: 1 spoon
+    - salt: 2 spoon
+ steps:    
+    - tel, 2, l
+    - masino pyaj
+    - khursani, 2
+    - masu, 5
+    - xopne, 3
+    - lasun-adhuwa, 2
+    - masala, 1, m
+    - tamatar
+    - salt
+    - tamatar galunjel xopne, 2
+    - jhol
+    - xopne, 2, h

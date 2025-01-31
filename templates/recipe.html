@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <title></title>
+    <style>
+        body {
+            font-family: system-ui;
+            margin: 0;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .navbar {
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            font-size: 20px;
+        }
+        .navbar a {
+            text-decoration: none;
+            color: black;
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+        }
+#nav{
+    display: block;
+}   
+#nav.cama {
+    display: none;
+}
+
+        .ingredient-item {
+            /* display: flex; */
+            /* align-items: center; */
+            /* gap: 10px; */
+            margin: 10px 0;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+        .ingredient-name {
+            flex-grow: 1;
+        }
+        .crossed-out {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+        .sub-ingredients {
+            margin-left: 30px;
+        }
+        .step-view {
+            display: none;
+            padding: 20px;
+        }
+        .step-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }        
+        .timer {
+            font-size: 44px;
+            margin: 10px 0;
+        }
+        .navigation {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+        .menu-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+        .menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: white;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+            transition: right 0.3s;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        .menu.open {
+            right: 0;
+        }
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button.nav{
+            padding: 10px 20px;
+            color: buttontext;
+            text-align: center;
+            background-color: transparent;
+            border: 2px solid buttonface
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        button.nav:hover{
+            background: transparent; 
+        }        
+        button:disabled {
+            background: #c0c0c0;
+            color: #6c757d;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .main-step {
+            display: flex;
+            align-items: center; /* This centers items vertically */
+        }
+        
+        #step-quantity, #current-step {
+            margin-right: 10px; /* Optional: add some spacing between the elements */
+        }        
+    </style>
+</head>
+<body>
+    <div id="nav">
+    <nav class="navbar">
+        <a href="/">CookFood</a>
+    </nav>
+<hr style="margin:15px;">
+</div>
+    <div id="ingredients-view">
+        <h2>Ingredients</h2>
+        <div id="ingredients-list"></div>
+        <button onclick="startRecipe()">Start Recipe</button>
+    </div>
+
+    <div id="step-view" class="step-view">
+        <button class="menu-button" onclick="toggleMenu()">☰ Menu</button>
+        <div class="menu" id="menu">
+            <h3 id="side_menu_head">Steps</h3>
+            <div id="steps-menu"></div>
+            <hr>
+            <button onclick="showIngredients()">Back to Ingredients</button>
+        </div>
+        
+        <div class="step-card">
+                <img id="flame_img" src="" alt="">
+                <p id="flame_text"></p>
+
+          <div class="main-step"><div id="step-quantity"></div>  <h2 id="current-step"></h2></div>
+            <div id="step-note"></div>
+            <ul id="subIngreds"> </ul>
+            <div id="timer" class="timer"></div>
+            <button id="timer-control" style="display:none"; onclick="toggleTimer()">Pause Timer</button>
+        </div>
+
+        <div class="navigation">
+            <button onclick="previousStep()" class="nav" id="prev-button">Previous</button>
+            <button onclick="nextStep()" class="nav" id="next-button">Next</button>
+        </div>
+    </div>
+    <audio id="myAudio" src="/static/alarm.mp3"></audio>
+
+    <script>
+        const flames = {{ flames|safe }};
+        const recipe = {{ recipe|safe }};
+        let audio = document.getElementById("myAudio");
+
+        let currentStep = 0;
+        let timer = null;
+        let timeLeft = 0;
+        let ingredients = new Map();
+
+        function renderIngredients(ingredientsList, parentElement, prefix = '') {
+            if (prefix=='' && ingredientsList==[]){
+                startRecipe();
+                return;
+            }
+            ingredientsList.forEach((ingredient, index) => {
+                const div = document.createElement('div');
+                div.className = 'ingredient-item';
+                
+                const id = prefix + index;
+                if(prefix.includes('-sub-')){
+                    div.innerHTML = `
+
+                    <input type="checkbox" class="have-ingredient" id="have-${id}" checked disabled>
+                    <label for="have-${id}" > <span class="ingredient-name" id="name-${id}">${ingredient.name}
+                        ${ingredient.quantity ? ` - ${ingredient.quantity}${ingredient.unit ? ' ' + ingredient.unit : ''}` : ''}
+                        ${ingredient.note ? ` (${ingredient.note})` : ''}
+                    </span></label>
+                    `;
+
+
+                }else{
+                div.innerHTML = `
+
+                    <input type="checkbox" class="have-ingredient" id="have-${id}" 
+                           onchange="updateIngredient('${id}')" checked>
+                    <label for="have-${id}" > <span class="ingredient-name" id="name-${id}">${ingredient.name}
+                        ${ingredient.quantity ? ` - ${ingredient.quantity}${ingredient.unit ? ' ' + ingredient.unit : ''}` : ''}
+                        ${ingredient.note ? ` (${ingredient.note})` : ''}
+                    </span></label>
+                `;
+                }
+                parentElement.appendChild(div);
+
+                ingredients.set(id, {
+                    ...ingredient,
+                    state: 'have'
+                });
+
+                if (ingredient.sub_ingredients) {
+                    const subDiv = document.createElement('div');
+                    subDiv.className = 'sub-ingredients';
+                    div.appendChild(subDiv);
+                    renderIngredients(ingredient.sub_ingredients, subDiv, `${id}-sub-`);
+                }
+            });
+        }
+
+
+        function updateChildIngreds(parentbox, pid, checked){
+
+            child_ingreds=parentbox.parentElement.querySelectorAll('.ingredient-item')
+            const cid = `${pid}-sub`;
+            if (child_ingreds){
+                var i = -1;
+                child_ingreds.forEach((ingred) => {
+                    i++;
+                    id = `${cid}-${i}`;
+                    checkBox = document.getElementById(`have-${cid}-${i}`);
+                    nameSpan = document.getElementById(`name-${cid}-${i}`);
+                    if (checked){
+                        checkBox.checked = true;
+                        nameSpan.classList.remove('crossed-out');
+                        ingredients.get(id).state = 'have';
+                    }else{
+                        checkBox.checked = false;
+                        nameSpan.classList.add('crossed-out');
+                        ingredients.get(id).state = 'none';
+                    }
+
+                });
+                
+            }            
+        }
+
+        function updateIngredient(id) {
+            const haveCheckbox = document.getElementById(`have-${id}`);
+            const nameSpan = document.getElementById(`name-${id}`);
+                if (haveCheckbox.checked) {
+                    haveCheckbox.checked = true;
+                    nameSpan.classList.remove('crossed-out');
+                    ingredients.get(id).state = 'have';
+                    updateChildIngreds(haveCheckbox, id, true);
+                } else {
+                    haveCheckbox.checked = false;
+                    nameSpan.classList.add('crossed-out');
+                    ingredients.get(id).state = 'none';
+                    updateChildIngreds(haveCheckbox, id, false);
+                }
+            render_menu();
+        }
+
+        function startRecipe() {
+            document.getElementById('ingredients-view').style.display = 'none';
+            document.getElementById('step-view').style.display = 'block';
+            document.getElementById('nav').classList.add('cama')
+            showStep(0);
+        }
+
+        function titleCase(str) {
+            return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        }
+
+        function goHome(){
+            window.location.pathname='/';
+        }
+        
+        function showStep(exact=null, add=null, sub=null) {
+            if (add){
+                currentStep++;
+            }else if (sub){
+                currentStep--;
+            }
+            else{
+                currentStep = exact;
+            }
+            const step = recipe.steps[currentStep];
+            document.getElementById('current-step').textContent = 
+            titleCase(step.instruction);
+            
+            let step_note = "";
+            let step_quantity = "";
+            let subIngrediens="";
+            if (step.flame_type) {
+                document.getElementById('flame_img').src="/static/"+step.flame_type+'.svg';
+                document.getElementById('flame_img').alt=step.flame_type;
+                if (step.flame_type in flames){
+                    document.getElementById('flame_text').innerText=`${titleCase(step.flame_type)} | ∡${flames[step.flame_type]['a']} | ${flames[step.flame_type]['t']}°`
+                }
+            }else{
+                document.getElementById('flame_img').src="";
+                document.getElementById('flame_img').alt="";
+                document.getElementById('flame_text').innerText="";
+            }
+
+            for (let [id, ing] of ingredients) {
+                if (ing.name === step.instruction){
+                    if(ing.state === 'none') {
+                        if (exact){
+                            showStep(null, true);
+                        }else{
+                            showStep(null, add, sub);
+                        }
+                    }else{
+                        if (ing.quantity) {
+                            step_quantity = `${ing.quantity}${ing.unit ? ' ' + ing.unit : ''}`;
+                        }
+                        if (ing.note) {
+                            step_note = `<i>Note: ${ing.note}</i>`;
+                        }
+                        if (ing.sub_ingredients){
+                            ing.sub_ingredients.forEach((ingre) => {
+                                subIngrediens+="<li>"+ingre.name+" - "+ingre.quantity+" "+ingre.unit+"</li>";
+                            });
+                        }
+                    }
+                }
+            }
+            if(subIngrediens){
+                document.getElementById('subIngreds').style.display="block";
+            document.getElementById('subIngreds').innerHTML=subIngrediens;
+            }else{
+                document.getElementById('subIngreds').style.display="none";
+            }
+            document.getElementById('step-note').innerHTML=step_note;
+            document.getElementById('step-quantity').innerHTML=step_quantity;
+            // Update timer
+            clearInterval(timer);
+            document.getElementById('timer').textContent = '';    
+            const tmerControl= document.getElementById('timer-control')
+            if (step.time){
+                tmerControl.style.display="block";
+                tmerControl.textContent = 'Pause Timer';
+                
+                timeLeft = Math.round(step.time * 60);
+                updateTimerDisplay();
+
+                toggleTimer(true);
+            }else{
+                tmerControl.style.display="none";
+            }
+            // Update navigation buttons
+            document.getElementById('prev-button').disabled = currentStep === 0;
+            if(currentStep === recipe.steps.length - 1){
+                // document.getElementById('next-button').disabled = true;
+                document.getElementById('next-button').innerText="Go Home";
+                document.getElementById('next-button').onclick = () => window.location.pathname = '/';
+            }else{
+                document.getElementById('next-button').innerText="Next"
+                document.getElementById('next-button').disabled = false;
+                document.getElementById('next-button').onclick=nextStep;
+            }
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function toggleTimer(start=false) {
+            const button = document.getElementById('timer-control');
+            if (!start && timer) {
+                clearInterval(timer);
+                timer = null;
+                button.textContent = 'Resume Timer';
+            } else if (start || timeLeft > 0) {
+                timer = setInterval(() => {
+                    timeLeft--;
+                    updateTimerDisplay();
+                    if (timeLeft === 0) {
+                        clearInterval(timer);
+                        timer = null;
+                        button.textContent = 'Ready!';
+                        try{navigator.vibrate(2000);
+                        }catch (error){}
+                        audio.play();
+                        nextStep();
+                    }
+                }, 1000);
+                button.textContent = 'Pause Timer';
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 0) {
+                showStep(null,null,true);
+            }
+        }
+
+        function nextStep() {
+            if (currentStep < recipe.steps.length - 1) {
+                showStep(null, true);
+            }
+        }
+
+        function toggleMenu() {
+            document.getElementById('menu').classList.toggle('open');
+        }
+
+        function showIngredients() {
+            document.getElementById('ingredients-view').style.display = 'block';
+            document.getElementById('step-view').style.display = 'none';
+            document.getElementById('menu').classList.remove('open');
+            document.getElementById('nav').classList.remove('cama')
+        }
+
+        function goToStep(index) {
+            showStep(index);
+            document.getElementById('menu').classList.remove('open');
+        }
+
+        // Initialize
+        window.onload = function() {
+            document.title = titleCase(recipe.name) + " | Recipe";
+            let side_text =""
+            if (recipe.serve_quantity){
+                side_text += recipe.serve_quantity;
+                if(recipe.serve_unit){
+                    side_text+= " "+recipe.serve_unit;
+                }
+            }
+            if (side_text){
+                side_text = " ["+side_text+"]"
+            }
+            document.getElementById('side_menu_head').innerText = titleCase(recipe.name) + side_text 
+            renderIngredients(recipe.ingredients, document.getElementById('ingredients-list'));
+            render_menu();            
+        };
+
+        function render_menu(){
+            // Render steps menu
+            const stepsMenu = document.getElementById('steps-menu');
+            stepsMenu.innerHTML="";
+            recipe.steps.forEach((step, index) => {
+                const button = document.createElement('button');
+                button.textContent = `Step ${index + 1}: ${step.instruction}`;
+                button.onclick = () => goToStep(index);
+                button.style.display = 'block';
+                button.style.margin = '5px 0';
+                button.style.width = '100%';
+                for (let [id, ing] of ingredients) {
+                    if (ing.name === step.instruction){
+                        if (ing.state=='none'){
+                            button.disabled = true;
+                        }
+                    }
+                }
+                stepsMenu.appendChild(button);
+            });        
+        }
+    </script>
+</body>
+</html>
