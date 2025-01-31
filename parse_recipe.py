@@ -159,6 +159,7 @@ class RecipeParser:
             quantity=unit=None
             if isinstance(ingredient_data, str):
                 name,note=extract_item_note(ingredient_data)
+                ingredients.append(Ingredient(name=name, quantity=quantity, unit=unit, note=note))
             else:
                 for key,value in ingredient_data.items():
                     if isinstance(value,list):
@@ -168,7 +169,7 @@ class RecipeParser:
                     else:
                         name,note=extract_item_note(key)
                         quantity, unit=extract_quantity_unit(str(value))
-            ingredients.append(Ingredient(name=name, quantity=quantity, unit=unit, note=note))
+                        ingredients.append(Ingredient(name=name, quantity=quantity, unit=unit, note=note))
         return ingredients
     
     def _parse_steps(self, steps_data: List[Dict]) -> List[Step]:
