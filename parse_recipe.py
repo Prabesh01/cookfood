@@ -46,7 +46,7 @@ def extract_quantity_unit(data):
     if match:
         quantity = match.group("quantity")
         unit = match.group("unit")
-        return quantity, unit
+        return quantity.strip() if quantity else None, unit.strip() if unit else None
     else:
         return None, None
 
@@ -59,7 +59,7 @@ def extract_item_note(data):
     else:
         item = data
         note = None
-    return item, note
+    return item.strip() if item else None, note.strip() if note else None
 
 
 class RecipeParser:
