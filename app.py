@@ -11,11 +11,10 @@ def home():
     print(data)
     return render_template('home.html', data=data)
 
-@app.route('/recipe/<recipe_name>')
+@app.route('/recipe/<path:recipe_name>')
 def recipe(recipe_name):
     serve = request.args.get('serve')
     recipe, flames = get_recipe(recipe_name, serve)
-    print(flames)
     if not recipe:
         return redirect(url_for('home'))
     return render_template('recipe.html',recipe=json.dumps(asdict(recipe), indent=4), flames=flames)
