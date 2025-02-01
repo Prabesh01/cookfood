@@ -25,6 +25,7 @@ class Ingredient:
 @dataclass
 class Step:
     instruction: str
+    note: Optional[str]=None
     time: Optional[int] = None
     flame_type: Optional[str] = None
 
@@ -175,9 +176,9 @@ class RecipeParser:
     def _parse_steps(self, steps_data: List[Dict]) -> List[Step]:
         steps = []
         for step_data in steps_data:
-            instruction=time=new_flame_type=None
+            instruction=note=time=new_flame_type=None
             step_data=step_data.split(',')
-            instruction=step_data[0]
+            instruction, note=extract_item_note(step_data[0])
             if len(step_data) == 2:
                 time_or_flame=step_data[1].strip()
                 try:
@@ -192,7 +193,7 @@ class RecipeParser:
             else: last_flame_type = new_flame_type
             corresponding_flame_name=self.flames.get(new_flame_type, None)
             if corresponding_flame_name: last_flame_type = new_flame_type = corresponding_flame_name.name
-            steps.append(Step(instruction=instruction, time=time, flame_type=new_flame_type))
+            steps.append(Step(instruction=instruction, note=note, time=time, flame_type=new_flame_type))
         return steps
 
 
