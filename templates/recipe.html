@@ -457,6 +457,7 @@
         
 
         function showIngredients() {
+            clearInterval(timer);
             if(ingredients.size===0){
                 startRecipe();
                 return;
