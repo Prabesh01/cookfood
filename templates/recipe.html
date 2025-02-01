@@ -307,7 +307,7 @@
             document.getElementById('current-step').textContent = 
             titleCase(step.instruction);
             
-            let step_note = "";
+            let step_note = [];
             let step_quantity = "";
             let subIngrediens="";
             if (step.flame_type) {
@@ -321,7 +321,9 @@
                 document.getElementById('flame_img').alt="";
                 document.getElementById('flame_text').innerText="";
             }
-
+            if (step.note){
+                step_note.push(`<i>${step.note}</i>`);
+            }
             for (let [id, ing] of ingredients) {
                 if (ing.name === step.instruction){
                     if(ing.state === 'none') {
@@ -335,7 +337,7 @@
                             step_quantity = `${ing.quantity}${ing.unit ? ' ' + ing.unit : ''}`;
                         }
                         if (ing.note) {
-                            step_note = `<i>Note: ${ing.note}</i>`;
+                            step_note.unshift(`<i>Ingredient Note: ${ing.note}</i>`);
                         }
                         if (ing.sub_ingredients){
                             ing.sub_ingredients.forEach((ingre) => {
@@ -351,7 +353,9 @@
             }else{
                 document.getElementById('subIngreds').style.display="none";
             }
-            document.getElementById('step-note').innerHTML=step_note;
+            if(step_note){
+                document.getElementById('step-note').innerHTML = step_note.join('<br>');
+            }
             document.getElementById('step-quantity').innerHTML=step_quantity;
             // Update timer
             clearInterval(timer);
@@ -370,13 +374,12 @@
             }
             // Update navigation buttons
             document.getElementById('prev-button').disabled = currentStep === 0;
+            // document.getElementById('next-button').disabled = currentStep === recipe.steps.length - 1;
             if(currentStep === recipe.steps.length - 1){
-                // document.getElementById('next-button').disabled = true;
                 document.getElementById('next-button').innerText="Go Home";
                 document.getElementById('next-button').onclick = () => window.location.pathname = '/';
             }else{
                 document.getElementById('next-button').innerText="Next"
-                document.getElementById('next-button').disabled = false;
                 document.getElementById('next-button').onclick=nextStep;
             }
         }
