@@ -16,7 +16,7 @@ boiler chicken:
  serve: 0.4 KG
  ingreds:
     - masino pyaj: 0.5
-    - lasun-adhuwa paste
+    - lasun-adhuwa
     - tamatar[masino]
     - khursani
     - masala:
@@ -42,7 +42,7 @@ boiler chicken:
 soda:
  steps:
   - squeeze lemons
-  - 1 tspn sugar
+  - 1 tspn sugar per glass
   - kinley soda
   - icecube
   - itti salt
@@ -229,3 +229,28 @@ pasta/macroni [mistral]:
     - masala, 1, m
     - mix well, 2
     - serve hot  
+
+
+sasto fast food:
+ ingreds:
+  - boil anda [+ nun]
+  - boil aalu [+ timor ko xop]
+  - boil chau chau
+  - sato [+ tato pani]
+  - makai  
+  - aalu vujiya
+  - chatpat
+  - dudh-vaat:
+    - + achar
+    - + ghee/maha
+    - + chicken stock soup 
+    - + tei dudh ko coffee 
+ steps:
+  - boil anda 
+  - boil aalu
+  - boil chau chau
+  - sato
+  - makai
+  - aalu vujiya
+  - chatpat
+  - dudh-vaat
