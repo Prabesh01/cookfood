@@ -176,7 +176,7 @@ class RecipeParser:
     def _parse_steps(self, steps_data: List[Dict]) -> List[Step]:
         steps = []
         for step_data in steps_data:
-            instruction=note=time=new_flame_type=None
+            instruction=note=time=new_flame_type=last_flame_type=None
             step_data=step_data.split(',')
             instruction, note=extract_item_note(step_data[0])
             if len(step_data) == 2:
@@ -185,14 +185,27 @@ class RecipeParser:
                     time=float(time_or_flame)
                 except:
                     new_flame_type=time_or_flame
-            elif len(step_data) == 3:
-                time=step_data[1].strip()
-                new_flame_type=step_data[2].strip()
+            elif len(step_data) >= 3:
+                try:
+                    time=float(step_data[-1])
+                    new_flame_type=None
+                except:
+                    try:
+                        time=float(step_data[-2])
+                        new_flame_type=step_data[-1]
+                    except:
+                        time=None
+                        new_flame_type=step_data[-1]
+                # time=step_data[1].strip()
+                # new_flame_type=step_data[2].strip()
             if not new_flame_type:
                 new_flame_type = last_flame_type
-            else: last_flame_type = new_flame_type
+            else: last_flame_type = new_flame_type = new_flame_type.strip()
             corresponding_flame_name=self.flames.get(new_flame_type, None)
             if corresponding_flame_name: last_flame_type = new_flame_type = corresponding_flame_name.name
+            else: new_flame_type = None
+            if time == None and new_flame_type == None:
+                instruction, note=extract_item_note(','.join(step_data))
             steps.append(Step(instruction=instruction, note=note, time=time, flame_type=new_flame_type))
         return steps
 
@@ -231,7 +244,7 @@ def get_recipe(recipe_name: str, required_serving_quantity: int=None):
             flame=flames[f]
             json_flames[flame.name]={"a":flame.angle,"t":flame.temperature}
         if not recipe.steps:
-            return None
+            return None, None
         if not recipe.serve_quantity or not required_serving_quantity or float(required_serving_quantity) <=0:
             return recipe, json_flames
         recipe_serving_quantity=float(recipe.serve_quantity)
