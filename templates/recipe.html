@@ -33,6 +33,9 @@
 #nav.cama {
     display: none;
 }
+.hidden {
+    display: none;
+  }  
 
         .ingredient-item {
             /* display: flex; */
@@ -92,6 +95,7 @@
             box-shadow: -2px 0 5px rgba(0,0,0,0.1);
             transition: right 0.3s;
             padding: 20px;
+            padding-top: 60px;
             box-sizing: border-box;
             overflow-y: auto;
         }
@@ -151,7 +155,7 @@
     </div>
 
     <div id="step-view" class="step-view">
-        <button class="menu-button" onclick="toggleMenu()">☰ Menu</button>
+        <button id="menu-button" class="menu-button" onclick="toggleMenu()">☰ Menu</button>
         <div class="menu" id="menu">
             <h3 id="side_menu_head">Steps</h3>
             <div id="steps-menu"></div>
@@ -431,7 +435,19 @@
 
         function toggleMenu() {
             document.getElementById('menu').classList.toggle('open');
+            // document.getElementById('menu-button').classList.add('hidden');
         }
+
+        document.addEventListener("click", function(event) {
+            let menu = document.getElementById("menu");
+            // let menuButton = document.getElementById("menu-button");
+        
+            if (menu.classList.contains("open") && !menu.contains(event.target) && !menuButton.contains(event.target)) {
+                menu.classList.remove("open");
+                // menuButton.classList.remove("hidden");
+            }
+        });
+        
 
         function showIngredients() {
             if(ingredients.size===0){
@@ -441,12 +457,14 @@
             document.getElementById('ingredients-view').style.display = 'block';
             document.getElementById('step-view').style.display = 'none';
             document.getElementById('menu').classList.remove('open');
+            // document.getElementById('menu-button').classList.remove('hidden');
             document.getElementById('nav').classList.remove('cama')
         }
 
         function goToStep(index) {
             showStep(index);
             document.getElementById('menu').classList.remove('open');
+            // document.getElementById('menu-button').classList.remove('hidden');
         }
 
         // Initialize
