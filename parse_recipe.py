@@ -219,6 +219,8 @@ class RecipeParser:
             scaled_quantity *= 0.7
         elif any(oil for oil in self.oil_keywords if oil in name):
             scaled_quantity *= 0.8 
+        if scaled_quantity:
+            scaled_quantity = round(scaled_quantity, 2)
         return scaled_quantity
     
     def scale_recipe(self, recipe, scale):
