@@ -440,7 +440,7 @@
 
         document.addEventListener("click", function(event) {
             let menu = document.getElementById("menu");
-            // let menuButton = document.getElementById("menu-button");
+            let menuButton = document.getElementById("menu-button");
         
             if (menu.classList.contains("open") && !menu.contains(event.target) && !menuButton.contains(event.target)) {
                 menu.classList.remove("open");
