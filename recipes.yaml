@@ -12,7 +12,7 @@ flames:
     - 90
     - 1200
 
-chicken:
+boiler chicken:
  serve: 0.4 KG
  ingreds:
     - masino pyaj: 0.5
@@ -38,3 +38,194 @@ chicken:
     - tamatar galunjel xopne, 2
     - jhol
     - xopne, 2, h
+
+soda:
+ steps:
+  - squeeze lemons
+  - 1 tspn sugar
+  - kinley soda
+  - icecube
+  - itti salt
+  - stirr
+
+anda curry [chatgpt]:
+  serve: 1 manche
+  ingreds:
+    - anda: 2
+    - pyaj[masino]: 1
+    - lasun-adhuwa paste
+    - tamatar[masino]: 2
+    - dahi: 2 spoon
+    - dhaniya patti
+    - khursani:
+        - hariyo khursani: 1
+        - sukeko khursani: 2
+    - masala:
+        - mix masala: 1 spoon
+        - garam masala: 1 spoon
+        - haldi: 0.5 spoon
+        - jira dhulo: 0.5 spoon
+        - dhaniya dhulo: 1 spoon
+        - meat masala: 1 spoon
+    - salt: 1.5 spoon
+    - tel: 3 spoon
+  steps:
+    - tel, 2, l
+    - sukeko khursani[vutne], 2
+    - pyaj, 3
+    - lasun-adhuwa, 2
+    - tamatar, 2
+    - masala, 1, m
+    - dahi, 1
+    - salt
+    - anda[boil garne], 10, m
+    - anda[tokne ani tel ma bhutne], 2, m
+    - jhol[halne]
+    - xopne, 2, h
+    - dhaniya patti[chop garne ani halne]
+
+phulgobi [claude]:
+  serve: 1 person
+  ingreds:
+    - phulkobi[thulo tukra]: 250 g
+    - masino pyaj: 2
+    - lasun: 3 pode
+    - adhuwa[masino]: 1 inch
+    - jeera: 0.5 spoon
+    - masala:
+        - besar: 0.25 spoon
+        - dhaniya: 0.5 spoon
+        - garam masala: 0.25 spoon
+    - khursani[sukeko]: 2
+    - tamatar: 1
+    - salt: 1 spoon
+    - dhaniya paat
+  steps:
+    - tel, 1, m
+    - jeera, 0.5, m
+    - masino pyaj, 2
+    - lasun
+    - adhuwa
+    - khursani, 1
+    - phulkobi, 3, h
+    - masala, 1
+    - salt
+    - tamatar
+    - xopne, 5, m
+    - dhaniya paat
+
+
+chyau (mushroom) [gemini]:
+ serve: 1 person
+ ingreds:
+  - chyau: 200 gram
+  - pyaj (masino): 1 medium
+  - lasun-adhuwa paste: 1 spoon
+  - tamatar (masino): 1 medium
+  - khursani (hariyo): 2
+  - masala:
+    - jeera: 1/2 spoon
+    - dhaniya: 1 spoon
+    - haldi: 1/2 spoon
+    - garam masala: 1/2 spoon
+  - tel: 2 spoon
+  - salt: 1/2 spoon
+  - dhaniya patta (chop gareko): 1 spoon
+ steps:
+  - tel, 2, m
+  - pyaj (masino), 3
+  - khursani (hariyo), 1
+  - lasun-adhuwa paste, 1
+  - chyau, 5
+  - masala, 2, m
+  - tamatar (masino), 2
+  - salt, 1
+  - tamatar galunjel xopne, 5, l
+  - dhaniya patta (chop gareko), 1
+  - jhol (optional), 2, l
+
+karela [deepseek]:
+ serve: 2 piece
+ ingreds:
+    - karela [bitter gourd]: 2 piece
+    - masino pyaj: 0.5
+    - lasun-adhuwa paste
+    - tamatar[masino]: 1
+    - khursani: 2
+    - masala:
+        - mix masala: 1 spoon
+        - garam masala: 0.5 spoon
+        - besar: 0.5 spoon
+        - meat masala: 0.5 spoon
+    - salt: 1 spoon
+    - tel: 2 spoon
+ steps:    
+    - karela katne [thin slices], 5
+    - karela namak lagaune [salt and keep aside], 10
+    - tel, 2, l
+    - masino pyaj
+    - khursani[vutne], 2
+    - lasun-adhuwa, 2
+    - masala, 1, m
+    - tamatar
+    - salt
+    - karela thapai halne [add bitter gourd slices], 5
+    - tamatar galunjel xopne, 2
+    - jhol
+    - xopne, 2, h
+
+pork curry [deepai]:
+ serve: 1 meal
+ ingreds:
+    - masino pyaj: 0.3 KG
+    - lasun-adhuwa paste: 1 spoon
+    - tamatar[masino]: 1
+    - khursani: 2
+    - pork: 0.5 KG
+    - masala:
+        - mix masala: 1 spoon
+        - garam masala: 0.5 spoon
+        - besar: 0.5 spoon
+        - meat masala: 1 spoon
+    - salt: 1 spoon
+ steps:
+    - tel, 2, l
+    - masino pyaj, 5
+    - khursani[vutne], 2
+    - pork, 10
+    - xopne, 3, m
+    - lasun-adhuwa, 1
+    - masala, 1, m
+    - tamatar
+    - salt
+    - tamatar galunjel xopne, 2
+    - jhol
+    - xopne, 5, h
+
+
+pasta/macroni [mistral]:
+ serve: 1 person
+ ingreds:
+    - pasta/macroni: 100 gm
+    - tel: 1 spoon
+    - lasun: 2 cloves
+    - pyaj: 1 medium
+    - tamatar: 1 medium
+    - khursani: 1
+    - masala:
+        - salt: 1 spoon
+        - black pepper: 0.5 spoon
+        - oregano: 0.5 spoon
+        - cheese: 20 gm
+ steps:
+    - boil water, 5, h
+    - add pasta/macroni, 8, m
+    - drain water
+    - tel, 1, m
+    - lasun, 1, m
+    - pyaj, 2, m
+    - tamatar, 2, m
+    - khursani, 1, m
+    - masala, 1, m
+    - mix well, 2
+    - serve hot  
