@@ -175,8 +175,9 @@ class RecipeParser:
     
     def _parse_steps(self, steps_data: List[Dict]) -> List[Step]:
         steps = []
+        last_flame_type=None
         for step_data in steps_data:
-            instruction=note=time=new_flame_type=last_flame_type=None
+            instruction=note=time=new_flame_type=None
             step_data=step_data.split(',')
             instruction, note=extract_item_note(step_data[0])
             if len(step_data) == 2:
@@ -202,7 +203,7 @@ class RecipeParser:
                 new_flame_type = last_flame_type
             else: last_flame_type = new_flame_type = new_flame_type.strip()
             corresponding_flame_name=self.flames.get(new_flame_type, None)
-            if corresponding_flame_name: last_flame_type = new_flame_type = corresponding_flame_name.name
+            if corresponding_flame_name: new_flame_type = corresponding_flame_name.name
             else: new_flame_type = None
             if time == None and new_flame_type == None:
                 instruction, note=extract_item_note(','.join(step_data))
