@@ -28,7 +28,7 @@ chicken:
  steps:    
     - tel, 2, l
     - masino pyaj
-    - khursani, 2
+    - khursani[vutne], 2
     - masu, 5
     - xopne, 3
     - lasun-adhuwa, 2
