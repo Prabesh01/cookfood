@@ -156,7 +156,7 @@
             <h3 id="side_menu_head">Steps</h3>
             <div id="steps-menu"></div>
             <hr>
-            <button onclick="showIngredients()">Back to Ingredients</button>
+            <button id="back_to" onclick="showIngredients()">Back to Ingredients</button>
         </div>
         
         <div class="step-card">
@@ -188,7 +188,9 @@
         let ingredients = new Map();
 
         function renderIngredients(ingredientsList, parentElement, prefix = '') {
-            if (prefix=='' && ingredientsList==[]){
+            if (prefix=='' && ingredientsList.length===0){
+                document.getElementById('back_to').onclick=goHome;
+                document.getElementById('back_to').innerText="Go Home";
                 startRecipe();
                 return;
             }
@@ -432,6 +434,10 @@
         }
 
         function showIngredients() {
+            if(ingredients.size===0){
+                startRecipe();
+                return;
+            }
             document.getElementById('ingredients-view').style.display = 'block';
             document.getElementById('step-view').style.display = 'none';
             document.getElementById('menu').classList.remove('open');
