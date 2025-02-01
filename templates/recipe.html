@@ -333,7 +333,7 @@
             for (let [id, ing] of ingredients) {
                 if (ing.name === step.instruction){
                     if(ing.state === 'none') {
-                        if (exact){
+                        if (!add && !sub){
                             showStep(null, true);
                         }else{
                             showStep(null, add, sub);
@@ -347,7 +347,14 @@
                         }
                         if (ing.sub_ingredients){
                             ing.sub_ingredients.forEach((ingre) => {
-                                subIngrediens+="<li>"+ingre.name+" - "+ingre.quantity+" "+ingre.unit+"</li>";
+                                subIngrediens+="<li>"+ingre.name;
+                                if(ingre.quantity){
+                                    subIngrediens+=" - "+ingre.quantity;
+                                    if(ingre.unit){
+                                        subIngrediens+=" "+ingre.unit;
+                                    }
+                                    subIngrediens+="</li>";
+                                }
                             });
                         }
                     }
