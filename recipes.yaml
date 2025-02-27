@@ -230,6 +230,137 @@ pasta/macroni [mistral]:
     - mix well, 2
     - serve hot  
 
+banda/gobi ra aalu tarkari [claude]:
+ serve: 2 person
+ ingreds:
+    - banda/gobi [mithho]: 1/2
+    - aalu: 2 medium
+    - masino pyaj: 1
+    - lasun: 4 clove
+    - adhuwa: 1 inch
+    - jeera: 1 spoon
+    - tamatar: 1
+    - khursani: 2
+    - masala:
+        - jeera powder: 1 spoon
+        - dhania powder: 1 spoon
+        - besar: 1 spoon
+        - garam masala: 0.5 spoon
+    - hariyo dhania: for garnish
+    - salt: according to taste
+    - tel: 2 spoon
+ steps:    
+    - tel, 2, m
+    - jeera, 0.5, m
+    - masino pyaj, 2
+    - lasun-adhuwa paste, 1
+    - khursani, 1, l
+    - aalu, 3
+    - banda/gobi, 2
+    - masala, 1
+    - salt
+    - chalaune, 2
+    - tamatar, 1
+    - jhol, 0.5 cup
+    - chalaune
+    - chhopne, 10, l
+    - hariyo dhania
+
+banda gobi aalu [chatgpt]: 
+serve: 2 person
+ingreds:
+    - banda gobi [cabbage]: 1/2
+    - aalu [potato]: 2 medium
+    - masino pyaj: 0.5
+    - lasun [garlic]: 1 spoon
+    - jeera [cumin seeds]: 0.5 spoon
+    - haldi [turmeric]: 0.5 spoon
+    - dhaniya-pudina powder [coriander-mint powder]: 1 spoon
+    - garam masala: 0.5 spoon
+    - jhol masala [optional for gravy]: 1 spoon
+    - namak [salt]: 1.5 spoon
+    - tel [oil]: 2 spoon
+steps:    
+    - tel, 2, m
+    - masino pyaj, 2, m
+    - jeera, 1, m
+    - lasun, 1, m
+    - aalu, 4, m
+    - haldi, 1, m
+    - dhaniya-pudina powder, 1, m
+    - banda gobi, 5, m
+    - garam masala, 1, m
+    - namak, 1, m
+    - jhol masala, 1, m
+    - xopne, 5, l
+    - jhol, 2
+    - xopne, 5, m
+
+daal [gemini]:
+  serve: 2 person
+  ingreds:
+    - musuro ko daal: 1 cup
+    - pani: 4 cup
+    - masino pyaj: 1 medium
+    - lasun: 4 cloves
+    - adhuwa: 1 inch
+    - tamatar: 1 medium
+    - hariyo khursani: 2
+    - tel: 2 tbsp
+    - besar: 0.5 tsp
+    - jeera: 1 tsp
+    - dhaniya powder: 1 tsp
+    - nun: 1.5 tsp
+    - sukha khursani: 2
+    - methi: 0.5 tsp
+    - dhaniya ko pat: handful
+  steps:
+    - daal dhune
+    - pani, daal, besar, 10, m
+    - xopne, 15, l
+    - lasun-adhuwa paste
+    - pyaj masino chop
+    - tamatar masino chop
+    - hariyo khursani masino chop
+    - tel, 2, m
+    - jeera, methi, sukha khursani
+    - pyaj, 2
+    - lasun-adhuwa, 1
+    - tamatar, 2
+    - dhaniya powder, 1
+    - nun
+    - daal ma tarkari halne
+    - xopne, 5, l
+    - dhaniya ko pat halne
+
+daal [deepseek]:
+  serve: 2 person
+  ingreds:
+    - musuro daal: 1 cup
+    - pyaj [masino]: 0.5
+    - lasun-adhuwa paste: 1 spoon
+    - khursani [vutne]: 1
+    - tel: 2 spoon
+    - masala:
+        - jeera: 0.5 spoon
+        - dhania powder: 0.5 spoon
+        - haldi: 0.25 spoon
+        - garam masala: 0.5 spoon
+    - salt: 1 spoon
+    - jhol: 3 cup
+  steps:
+    - daal dhune ra bhitra pani halne, 5
+    - daal pressure cooker ma halne, 15, h
+    - tel, 2, m
+    - jeera, 1
+    - pyaj, 3
+    - khursani, 1
+    - lasun-adhuwa, 1
+    - masala, 2
+    - daal halne, 5
+    - salt, 1
+    - jhol halne, 2
+    - xopne, 5, l
 
 sasto fast food:
  ingreds:
