@@ -138,7 +138,15 @@
         
         #step-quantity, #current-step {
             margin-right: 10px; /* Optional: add some spacing between the elements */
-        }        
+        }       
+        #audio-control {
+          cursor:pointer;
+          padding: 10px 20px;
+          background:#000;
+          color: #fff;
+          border-radius: 4px;
+          display: inline-block;
+        }
     </style>
 </head>
 <body>
@@ -178,6 +186,8 @@
             <button onclick="previousStep()" class="nav" id="prev-button">Previous</button>
             <button onclick="nextStep()" class="nav" id="next-button">Next</button>
         </div>
+         <br /><br />
+        <div id="audio-control" class="muted" onclick="mute_unmute()">Mute</div>
     </div>
     <audio id="myAudio" src="/static/alarm.mp3"></audio>
 
@@ -185,12 +195,34 @@
         const flames = {{ flames|safe }};
         const recipe = {{ recipe|safe }};
         let audio = document.getElementById("myAudio");
-
+        const audio_control= document.getElementById('audio-control');
+        
         let currentStep = 0;
         let timer = null;
         let timeLeft = 0;
         let ingredients = new Map();
 
+        function mute_unmute(){
+            if (audio_control.textContent=='Mute'){
+                audio_control.textContent=='Unmute';
+                document.cookie = `stat=Unmute; path=/`;
+            }else{
+                audio_control.textContent=='Mute';
+                document.cookie = `stat=Mute; path=/`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            let aud_stat='Mute';
+              try{
+                  aud_stat = document.cookie
+                      .split('; ')
+                      .find(row => row.startsWith('stat='))
+                      .split('=')[1];
+              }catch(e){}
+            audio_control.textContent=aud_stat;
+        }
+        
         function renderIngredients(ingredientsList, parentElement, prefix = '') {
             if (prefix=='' && ingredientsList.length===0){
                 document.getElementById('back_to').onclick=goHome;
@@ -420,7 +452,9 @@
                         button.textContent = 'Ready!';
                         try{navigator.vibrate(2000);
                         }catch (error){}
-                        audio.play();
+                        if (audio_control.textContent=='Mute'){
+                            audio.play();
+                        }
                         nextStep();
                     }
                 }, 1000);
