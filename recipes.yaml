@@ -267,34 +267,34 @@ banda/gobi ra aalu tarkari [claude]:
     - hariyo dhania
 
 banda gobi aalu [chatgpt]: 
-serve: 2 person
-ingreds:
-    - banda gobi [cabbage]: 1/2
-    - aalu [potato]: 2 medium
-    - masino pyaj: 0.5
-    - lasun [garlic]: 1 spoon
-    - jeera [cumin seeds]: 0.5 spoon
-    - haldi [turmeric]: 0.5 spoon
-    - dhaniya-pudina powder [coriander-mint powder]: 1 spoon
-    - garam masala: 0.5 spoon
-    - jhol masala [optional for gravy]: 1 spoon
-    - namak [salt]: 1.5 spoon
-    - tel [oil]: 2 spoon
-steps:    
-    - tel, 2, m
-    - masino pyaj, 2, m
-    - jeera, 1, m
-    - lasun, 1, m
-    - aalu, 4, m
-    - haldi, 1, m
-    - dhaniya-pudina powder, 1, m
-    - banda gobi, 5, m
-    - garam masala, 1, m
-    - namak, 1, m
-    - jhol masala, 1, m
-    - xopne, 5, l
-    - jhol, 2
-    - xopne, 5, m
+  serve: 2 person
+  ingreds:
+      - banda gobi [cabbage]: 1/2
+      - aalu [potato]: 2 medium
+      - masino pyaj: 0.5
+      - lasun [garlic]: 1 spoon
+      - jeera [cumin seeds]: 0.5 spoon
+      - haldi [turmeric]: 0.5 spoon
+      - dhaniya-pudina powder [coriander-mint powder]: 1 spoon
+      - garam masala: 0.5 spoon
+      - jhol masala [optional for gravy]: 1 spoon
+      - namak [salt]: 1.5 spoon
+      - tel [oil]: 2 spoon
+  steps:    
+      - tel, 2, m
+      - masino pyaj, 2, m
+      - jeera, 1, m
+      - lasun, 1, m
+      - aalu, 4, m
+      - haldi, 1, m
+      - dhaniya-pudina powder, 1, m
+      - banda gobi, 5, m
+      - garam masala, 1, m
+      - namak, 1, m
+      - jhol masala, 1, m
+      - xopne, 5, l
+      - jhol, 2
+      - xopne, 5, m
 
 daal [gemini]:
   serve: 2 person
