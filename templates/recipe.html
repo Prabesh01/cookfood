@@ -204,10 +204,10 @@
 
         function mute_unmute(){
             if (audio_control.textContent=='Mute'){
-                audio_control.textContent=='Unmute';
+                audio_control.textContent='Unmute';
                 document.cookie = `stat=Unmute; path=/`;
             }else{
-                audio_control.textContent=='Mute';
+                audio_control.textContent='Mute';
                 document.cookie = `stat=Mute; path=/`;
             }
         }
