@@ -6,7 +6,7 @@ After=network.target
 
 [Service]
 User=root
-WorkingDirectory=/path/to/your/repo
+WorkingDirectory=/root/cookfood
 ExecStart=gunicorn -w 4 -b 0.0.0.0:40032 -w 3 --reload app:app 
 Restart=always
 
