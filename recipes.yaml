@@ -84,6 +84,103 @@ anda curry [chatgpt]:
     - xopne, 2, h
     - dhaniya patti[chop garne ani halne]
 
+iskus [Deepseek]:
+ serve: 2 person
+ ingreds:
+    - iskus: 4 pcs
+    - pyaj[masino]: 1 pcs
+    - lasun-adhuwa paste: 1 spoon
+    - tamatar[masino]: 1 pcs
+    - khursani: 2 pcs
+    - masala:
+        - jira: 0.5 spoon
+        - dhaniya: 1 spoon
+        - besar: 0.5 spoon
+        - garam masala: 0.5 spoon
+    - salt: 1 spoon
+    - tel: 2 spoon
+ steps:
+    - tel, 1, m
+    - jira
+    - khursani[vutne]
+    - pyaj, 3
+    - lasun-adhuwa, 2
+    - iskus[kateko], 5
+    - masala[sabai], 2
+    - tamatar, 3
+    - salt
+    - jhol[pani], 2
+    - dhakera xopne, 7, l
+    - garam masala, 1
+
+
+iskus [gemini]:
+  serve: 2 person
+  ingreds:
+    - kateko iskus: 1
+    - tel: 2 spoon
+    - methi: 0.5 spoon
+    - masino pyaj: 0.5
+    - lasun-adhuwa paste: 1 spoon
+    - kateko tamatar: 1
+    - hariyo khursani: 1
+    - masala:
+        - besar: 0.5 spoon
+        - jeera-dhaniya powder: 1 spoon
+    - noon: 1 spoon
+    - paani: 0.5 cup
+    - dhaniya
+  steps:
+    - tel, 1, m
+    - methi
+    - hariyo khursani
+    - masino pyaj, 3
+    - lasun-adhuwa paste, 1
+    - masala, 1, l
+    - kateko tamatar, 2
+    - kateko iskus, 2
+    - noon
+    - mix garne
+    - xopne, 10
+    - paani
+    - xopne, 5
+    - dhaniya
+    - serve garne
+
+aalu bodi [gemini]:
+  serve: 2 person
+  ingreds:
+    - tel: 3 spoon
+    - methi: 0.5 spoon
+    - aalu[kateko]: 2
+    - bodi[bhijayeko]: 1 cup
+    - masino pyaj: 1
+    - lasun-adhuwa paste: 1 spoon
+    - kateko tamatar: 2
+    - masala:
+        - besar: 0.5 spoon
+        - jeera-dhaniya powder: 1 spoon
+        - tarkaari masala: 1 spoon
+    - noon: 1.5 spoon
+    - paani[jhol ko lagi]: 2 cup
+    - dhaniya
+  steps:
+    - tel, 1, m
+    - methi
+    - masino pyaj, 3
+    - aalu[kateko], 5
+    - lasun-adhuwa paste, 1
+    - bodi[bhijayeko]
+    - vutne, 2
+    - masala, 1, l
+    - kateko tamatar
+    - noon
+    - xopne, 5
+    - paani[jhol ko lagi]
+    - xopne, 15, m
+    - dhaniya
+    - serve garne
+
 phulgobi [claude]:
   serve: 1 person
   ingreds:
